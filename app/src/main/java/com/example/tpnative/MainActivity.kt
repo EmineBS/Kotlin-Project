@@ -20,14 +20,24 @@ import com.example.tpnative.ui.theme.TpNativeTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.Button
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +49,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Gestionnaire();
+
+                    //Tp2:
+                    LemonApp()
+                    //DiceRollerApp();
+
+                    //Tp1:
+                    //Gestionnaire();
                     //Article();
                     //GreetingImage(message = "Happy Birthday Rayen!", from = "From Amine", modifier = Modifier.padding(8.dp))
                 }
@@ -48,6 +64,150 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    LemonApp()
+}
+@Composable
+fun LemonApp() {
+    // A surface container using the 'background' color from the theme
+
+    var currentStep by remember { mutableStateOf(1) }
+
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        when (currentStep) {
+            1 -> {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.lemon_tree),
+                        contentDescription = stringResource(R.string.lemon_select),
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .clickable {
+                                currentStep = 2
+                            }
+                    )
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(text = stringResource(R.string.lemon_tree_content_description))
+                }
+            }
+
+            2 -> {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.lemon_squeeze),
+                        contentDescription = stringResource(R.string.lemon_squeeze),
+                        modifier = Modifier.wrapContentSize()
+                            .clickable {
+                                currentStep = 3
+                            }
+                    )
+                    Spacer(
+                        modifier = Modifier.height(
+                            32
+                                .dp
+                        )
+                    )
+                    Text(text = stringResource(R.string.lemon_select_content_description))
+                }
+            }
+            3 -> {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.lemon_drink),
+                        contentDescription = stringResource(R.string.lemon_squeeze),
+                        modifier = Modifier.wrapContentSize()
+                            .clickable {
+                                currentStep = 4
+                            }
+                    )
+                    Spacer(
+                        modifier = Modifier.height(
+                            32
+                                .dp
+                        )
+                    )
+                    Text(text = stringResource(R.string.lemon_drink_content_description))
+                }
+            }
+            4 -> {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.lemon_restart),
+                        contentDescription = stringResource(R.string.lemon_squeeze),
+                        modifier = Modifier.wrapContentSize()
+                            .clickable {
+                                currentStep = 1
+                            }
+                    )
+                    Spacer(
+                        modifier = Modifier.height(
+                            32
+                                .dp
+                        )
+                    )
+                    Text(text = stringResource(R.string.lemon_restart_content_description))
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DiceRollerApp() {
+    DiceWithButtonAndImage();
+}
+
+@Composable
+fun DiceWithButtonAndImage(modifier: Modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center)) {
+    var result by remember { mutableStateOf(1) }
+    val imageResource = when (result) {
+        1 -> R.drawable.dice_1
+        2 -> R.drawable.dice_2
+        3 -> R.drawable.dice_3
+        4 -> R.drawable.dice_4
+        5 -> R.drawable.dice_5
+        else -> R.drawable.dice_6
+    }
+    Column (
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(imageResource),
+            contentDescription = result.toString()
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = { result = (1..6).random() }) {
+            Text(stringResource(R.string.roll))
+        }
+    }
+}
+
+
+/** Tp1
 @Composable
 fun Gestionnaire(modifier: Modifier = Modifier){
     val image = painterResource(R.drawable.ic_task_completed)
@@ -129,3 +289,4 @@ fun GreetingPreview() {
         )
     }
 }
+ **/

@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Tp Native</string>
+    <string name="roll">Roll</string>
+    <string name="lemon_select"></string>
+    <string name="lemon_squeeze"></string>
+    <string name="lemon_drink"></string>
+    <string name="lemon_restart"></string>
+    <string name="lemon_tree_content_description">Tap the lemon tree to select a lemon</string>
+    <string name="lemon_select_content_description">Keep tapping the lemon to squeeze it</string>
+    <string name="lemon_drink_content_description">Tap the lemonade to drink it</string>
+    <string name="lemon_restart_content_description">Tap the empty glass to start again</string>
 </resources>
